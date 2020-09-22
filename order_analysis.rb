@@ -1,3 +1,6 @@
+require_relative './order.rb'
+require_relative './customer.rb'
+
 class OrderAnalysis
   CSV_DELIMITER = ";"
 
@@ -21,12 +24,12 @@ class OrderAnalysis
       return
     end
 
-    id = parts[0]
+    customer_id = parts[0]
     first_name = parts[1]
     last_name = parts[2]
     location = parts[3]
 
-    puts "Customer #{id}: #{first_name} #{last_name}"
+    puts "Customer #{customer_id}: #{first_name} #{last_name} (#{location})"
   end
 end
 
