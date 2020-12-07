@@ -6,6 +6,10 @@ In this exercise you will learn:
 * [ ] How to structure classes to store input data
 * [ ] How to create associations between classes
 
+## Download the project
+
+Download the project [here](https://github.com/rubymonstas-zurich/order-analysis-exercise/archive/master.zip).
+
 ## Tasks
 
 This exercise has 3 Ruby files and 2 CSV files. The idea is to load the data from the CSV files and "glue" them together in Ruby classes.
