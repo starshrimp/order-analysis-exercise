@@ -130,7 +130,7 @@ Customer 21: Luanne Duchene (Jakarta)
 Customer 22: Jeannine Cutting (Nairobi)
 ```
 
-### Milestone 2: The `Order` class
+#### Milestone 2: The `Order` class
 
 Next, we're going to implement similar things for the order-data.
 
