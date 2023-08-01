@@ -13,15 +13,12 @@ class Customer
       @orders.push(order)
     end
   end
-  def output_orders
-    puts "Orders for Customer #{@id}:"
-    p @orders
-    # @items.each_with_index do |item, index|
-    #   p @orders
-    # end
-  end
+ 
   def output
-    p "Customer #{@id}: : #{@first_name} #{@last_name} (#{@location})"
+    puts "Customer #{@id}: : #{@first_name} #{@last_name} (#{@location})"
+    orders.each do |order|
+      order.output
+    end
   end
 end
   # See README.md

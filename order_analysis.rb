@@ -63,9 +63,6 @@ class OrderAnalysis
   def output
     @customers.each do |customer|
       customer.output
-      customer.orders.each do |order|
-        order.output
-      end
     end
   end
 end

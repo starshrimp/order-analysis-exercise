@@ -7,6 +7,6 @@ class Order
     @price = price
   end
   def output
-    p "Order for Customer #{@customer}: #{@item} #{@price}"
+    puts "Order for Customer #{@customer}: #{@item} #{@price}"
   end
 end
