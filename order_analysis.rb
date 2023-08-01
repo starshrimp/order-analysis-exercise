@@ -5,7 +5,7 @@ class OrderAnalysis
   CSV_DELIMITER = ";"
   def initialize
     @customers = []
-    @orders = []
+
  
   end
   def analyze
@@ -21,7 +21,7 @@ class OrderAnalysis
       extract_customer(customer_line)
 
     end
-    p @customers
+  # p @customers
   end
 
   def extract_customer(line)
@@ -34,7 +34,6 @@ class OrderAnalysis
     customer = Customer.new(parts[0], parts[1], parts[2], parts[3])
     @customers.push(customer)
 
-    puts "Customer #{customer.id}: #{customer.first_name} #{customer.last_name} (#{customer.location})"
   end
 
   # def add_to_array(customer)
@@ -46,8 +45,12 @@ class OrderAnalysis
     orders_lines = orders_csv.split("\n")
 
     orders_lines.each do |order_line|
-      extract_order(order_line)
+      order = extract_order(order_line)
+      @customers.each do |customer|
+        customer.order_to_customer(order)
+      end
     end
+
   end
   def extract_order(line)
     parts = line.split(CSV_DELIMITER)
@@ -55,22 +58,20 @@ class OrderAnalysis
       puts "[ERROR] Something's wrong with this order line: #{line}!"
       return
     end
-
-    @order = Orders.new(parts[0], parts[1], parts[2])
-    @orders.push(@order)
-
-    puts "Order for Customer #{@order.customer}: #{@order.item} #{@order.price}"
+    order = Order.new(parts[0], parts[1], parts[2])
   end
-  def add_order(customer)
-    @customers.push(customer)
-    @customers.each(&:output_orders)
-  
+  def output
+    @customers.each do |customer|
+      customer.output
+      customer.orders.each do |order|
+        order.output
+      end
+    end
   end
-  
 end
 
 order_analysis = OrderAnalysis.new
 
 # Analyze customers and populate @customers array
 order_analysis.analyze
-order_analysis.add_order
+order_analysis.output

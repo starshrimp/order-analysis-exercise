@@ -1,26 +1,27 @@
 class Customer
-  attr_accessor :id, :first_name, :last_name, :location, :items, :prices
+  attr_accessor :id, :first_name, :last_name, :location, :orders
   def initialize(id, first_name, last_name, location)
     @id = id
     @first_name = first_name
     @last_name = last_name
     @location = location
-    @items = []
-    @prices = []
+    @orders = []
+   
   end
   def order_to_customer(order)
     if order.customer == @id
-      @items.push(order.item)
-      @prices.push(order.price)
+      @orders.push(order)
     end
   end
   def output_orders
     puts "Orders for Customer #{@id}:"
-    @items.each_with_index do |item, index|
-      puts "#{index + 1}. #{item} - #{@prices[index]}"
-    end
+    p @orders
+    # @items.each_with_index do |item, index|
+    #   p @orders
+    # end
   end
-  
-    
+  def output
+    p "Customer #{@id}: : #{@first_name} #{@last_name} (#{@location})"
+  end
 end
   # See README.md
