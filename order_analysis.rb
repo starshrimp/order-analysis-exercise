@@ -65,6 +65,20 @@ class OrderAnalysis
       customer.output
     end
   end
+  def top_orders
+    sort_by_money_spent
+    puts "Here's a list of the top customers:"
+    index = 1
+    @sorted_customers.each do |customer|
+      puts "Nr. #{index}: Customer #{customer.id}: #{customer.first_name} #{customer.last_name} (#{customer.location}): €#{customer.money_spent} in #{customer.amount_of_orders} orders."
+      index += 1
+    end
+
+  end
+  def sort_by_money_spent
+    @sorted_customers = Customer.all.sort_by { |customer| -customer.money_spent }
+    
+  end
 end
 
 order_analysis = OrderAnalysis.new
@@ -72,3 +86,5 @@ order_analysis = OrderAnalysis.new
 # Analyze customers and populate @customers array
 order_analysis.analyze
 order_analysis.output
+order_analysis.top_orders
+

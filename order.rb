@@ -1,12 +1,16 @@
 # See README.md
 class Order
-  attr_accessor :customer, :item, :price
+  @@prices = []
+  attr_accessor :customer, :item, :price; :orders; :items; :prices
   def initialize(customer, item, price)
     @customer = customer
     @item = item
     @price = price
+    # @@items = [] 
+    # @@prices
   end
   def output
-    puts "Order for Customer #{@customer}: #{@item} #{@price}"
+    puts"#{@item} €#{@price}"
   end
+
 end
