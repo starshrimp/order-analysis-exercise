@@ -5,14 +5,11 @@ class OrderAnalysis
   CSV_DELIMITER = ";"
   def initialize
     @customers = []
-
- 
   end
   def analyze
     analyze_customers
     analyze_orders
   end
-
   def analyze_customers
     customers_csv = File.read("customers.csv")
     customer_lines = customers_csv.split("\n")
@@ -21,7 +18,6 @@ class OrderAnalysis
       extract_customer(customer_line)
 
     end
-  # p @customers
   end
 
   def extract_customer(line)
@@ -35,10 +31,6 @@ class OrderAnalysis
     @customers.push(customer)
 
   end
-
-  # def add_to_array(customer)
-  #   @customers.push(@customer)
-  # end
 
   def analyze_orders
     orders_csv = File.read("orders.csv")
