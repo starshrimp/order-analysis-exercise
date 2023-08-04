@@ -59,7 +59,7 @@ class OrderAnalysis
     puts "Here's a list of the top customers:"
     index = 1
     sort_by_money_spent.each do |customer|
-      puts "Nr. #{index}: Customer #{customer.id}: #{customer.first_name} #{customer.last_name} (#{customer.location}): €#{customer.money_spent} in #{customer.amount_of_orders} orders."
+      puts "Nr. #{index}: Customer #{customer.id}: #{customer.first_name} #{customer.last_name} (#{customer.location}): €#{customer.money_spent} in #{customer.orders.length} orders."
       index += 1
     end
     puts "\n\n"

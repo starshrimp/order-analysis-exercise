@@ -22,7 +22,4 @@ class Order
   def uniq
     @@unique_items = @@all_items.uniq
   end
-  # def self.unique
-  #   @@unique_items
-  # end
 end

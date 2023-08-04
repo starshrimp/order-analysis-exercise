@@ -29,7 +29,7 @@ class Customer
       @money_spent += order.price.to_i
       order.output
     end
-    puts "Total number of orders: \n #{@orders.length}"
+    puts "Total number of orders: \n #{orders.length}"
     puts "Total amount spent: \n €#{@money_spent} \n\n"
 
   end
