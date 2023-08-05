@@ -15,6 +15,7 @@ class Customer
     if order.customer == @id
       @orders.push(order)
       
+      
     end
   end
   def self.all
