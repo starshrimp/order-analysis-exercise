@@ -21,7 +21,7 @@ class Customer
   def output
     if orders.length != 0
       puts "Customer #{@id}: #{@first_name} #{@last_name} (#{@location})"
-      puts "Orders for Customer #{@id}:" 
+      puts "Orders for #{@first_name} #{@last_name}:" 
       orders.each do |order|
         order.output
       end
