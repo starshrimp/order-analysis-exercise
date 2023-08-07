@@ -7,6 +7,13 @@ class Order
     @price = price
   end
   def output
-    puts "Order for Customer #{@customer}: #{@item} #{@price}"
+    puts"  •   #{@item} #{@price}"
+  end
+  def cleaned_price
+    cleaned_string = @price.gsub("€", "")
+    return cleaned_string.to_i
+  end
+  def self.all_items
+    @@all_items
   end
 end
