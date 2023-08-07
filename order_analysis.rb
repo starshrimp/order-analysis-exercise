@@ -1,9 +1,10 @@
 require_relative './order.rb'
 require_relative './customer.rb'
 require_relative './item.rb'
+require 'csv'
 
 class OrderAnalysis
-  CSV_DELIMITER = ";"
+  CSV_DELIMITER = ";"   
   def initialize
     @customers = []
   end
@@ -12,25 +13,29 @@ class OrderAnalysis
     parse_order_csv
   end
   def parse_customer_csv
-    customers_csv = File.read("customers.csv")
-    customer_lines = customers_csv.split("\n")
+    path = 'customers.csv'
+    customer_lines = []
+    customer_lines = File.read(path).split("\n")
     customer_lines.each do |customer_line|
       extract_customer(customer_line)
     end
   end
   def extract_customer(line)
-    parts = line.split(CSV_DELIMITER)
-    if parts.size != 4
-      puts "[ERROR] Something's wrong with this customer line: #{line}!"
-      return
+    column = CSV.parse_line(line, col_sep: ';')
+    column1 = column[0] 
+    column2 = column[1] 
+    column3 = column[2]
+    column4 = column[3]
+    if column.size != 4
+    puts "[ERROR] Something's wrong with this customer line: #{line}!"
+    return
     end
-    customer = Customer.new(parts[0], parts[1], parts[2], parts[3])
+    customer = Customer.new(column[0], column[1], column[2], column[3])
     @customers.push(customer)
   end
 
   def parse_order_csv
-    orders_csv = File.read("orders.csv")
-    orders_lines = orders_csv.split("\n")
+    orders_lines = File.read("orders.csv").split("\n")
     orders_lines.each do |order_line|
       order = extract_order(order_line)
       @customers.each do |customer|
@@ -94,7 +99,6 @@ class OrderAnalysis
 end
 
 order_analysis = OrderAnalysis.new
-
 order_analysis.parse
 order_analysis.output
 order_analysis.analyze_top_orders
