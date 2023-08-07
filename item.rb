@@ -1,18 +1,11 @@
 class Item
   attr_accessor :item_name, :price
-  # @@item_counters = {}
   @@item_counters = Hash.new(0)
   def initialize(item_name, price)
     @item_name = item_name
     @price = price
     @@item_counters[item_name] ||= 0
   end 
-  def self.set_quantity
-    quantity = 0
-  end
-  def self.increase_quantity
-    @@quantity +=1
-  end
   def self.item_counters
     @@item_counters
   end
@@ -22,5 +15,4 @@ class Item
   def item_counters
     @@item_counters
   end
-
 end

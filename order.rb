@@ -1,25 +1,19 @@
 # See README.md
 class Order
-  @@all_items = []
-  @@unique_items = []
-  attr_accessor :customer, :item, :price; :orders; :items; :prices
+  attr_accessor :customer, :item, :price
   def initialize(customer, item, price)
     @customer = customer
     @item = item
     @price = price
-    @@all_items.push(@item)
   end
   def output
-    puts"#{@item} #{@price}"
+    puts"  •   #{@item} #{@price}"
   end
-  def price
+  def cleaned_price
     cleaned_string = @price.gsub("€", "")
-    return cleaned_string
+    return cleaned_string.to_i
   end
   def self.all_items
     @@all_items
-  end
-  def uniq
-    @@unique_items = @@all_items.uniq
   end
 end
