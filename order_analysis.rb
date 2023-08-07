@@ -1,9 +1,10 @@
 require_relative './order.rb'
 require_relative './customer.rb'
 require_relative './item.rb'
+require 'csv'
 
 class OrderAnalysis
-  CSV_DELIMITER = ";"
+  CSV_DELIMITER = ","   
   def initialize
     @customers = []
   end
@@ -12,43 +13,34 @@ class OrderAnalysis
     parse_order_csv
   end
   def parse_customer_csv
-    customers_csv = File.read("customers.csv")
-    customer_lines = customers_csv.split("\n")
-    customer_lines.each do |customer_line|
-      extract_customer(customer_line)
+    CSV.foreach('customers.csv') do |row|
+      if row.size != 4 
+        puts "[ERROR] Something's wrong with this order line: #{row}!"
+        return
+      end
+      id = row[0]
+      first_name = row[1]
+      last_name = row[2]
+      location = row[3]
+      customer = Customer.new(id, first_name, last_name, location)
+      @customers.push(customer)
     end
   end
-  def extract_customer(line)
-    parts = line.split(CSV_DELIMITER)
-    if parts.size != 4
-      puts "[ERROR] Something's wrong with this customer line: #{line}!"
-      return
-    end
-    customer = Customer.new(parts[0], parts[1], parts[2], parts[3])
-    @customers.push(customer)
-  end
-
   def parse_order_csv
-    orders_csv = File.read("orders.csv")
-    orders_lines = orders_csv.split("\n")
-    orders_lines.each do |order_line|
-      order = extract_order(order_line)
+    CSV.foreach('orders.csv') do |row|
+      if row.size != 3 
+        puts "[ERROR] Something's wrong with this order line: #{row}!"
+        return
+      end
+      customer = row[0]
+      item = row[1]
+      price = row[2]
+      order = Order.new(customer, item, price)
       @customers.each do |customer|
         customer.assign_order_to_customer(order)
       end
-      item = Item.new(order.item, order.cleaned_price)
+      Item.increment_item_counter(order.item)
     end
-  
-  end
-  def extract_order(line)
-    parts = line.split(CSV_DELIMITER)
-    if parts.size != 3
-      puts "[ERROR] Something's wrong with this order line: #{line}!"
-      return
-    end
-    order = Order.new(parts[0], parts[1], parts[2])
-    Item.increment_item_counter(order.item)
-    return order
   end
   def output
     @customers.each(&:output)
@@ -94,7 +86,6 @@ class OrderAnalysis
 end
 
 order_analysis = OrderAnalysis.new
-
 order_analysis.parse
 order_analysis.output
 order_analysis.analyze_top_orders
